@@ -54,10 +54,14 @@ extract_data_from_fixed_width = BashOperator(
 # Create a task to consolidate data extracted from previous tasks
 consolidate_data = BashOperator(
     task_id='consolidate_data',
-    bash_command='paste /home/project/airflow/dags/finalassignment/csv_data.csv /home/project/airflow/dags/finalassignment/tsv_data.csv /home/project/airflow/dags/finalassignment/fixed_width_data.csv > /home/project/airflow/dags/finalassignment/extracted_data.csv',
+    bash_command="""
+    paste /home/project/airflow/dags/finalassignment/csv_data.csv \
+          /home/project/airflow/dags/finalassignment/tsv_data.csv \
+          /home/project/airflow/dags/finalassignment/fixed_width_data.csv \
+          > /home/project/airflow/dags/finalassignment/extracted_data.csv
+    """,
     dag=dag,
 )
-
 # Transform the data
 transform_data = BashOperator(
     task_id='transform_data',
